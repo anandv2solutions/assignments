@@ -1,3 +1,12 @@
+run the following command to run the repository one by one
+
+pnpm install 
+pnpm dev
+
+the server will start on localhost:3000
+
+for checking my first assignment go to http://localhost:3000/sidebar/dashboards
+
 # Vuero Vue3 - Multipurpose Admin and Webapp Template
 
 [![cssninja-discord](https://img.shields.io/discord/785473098069311510?label=join%20us%20on%20discord&color=6944EC)](https://go.cssninja.io/discord)

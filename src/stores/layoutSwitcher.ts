@@ -111,7 +111,7 @@ export const useLayoutSwitcher = defineStore('layoutSwitcher', () => {
   type SidebarComponentsId = keyof typeof sidebarComponents
   const sidebarComponentsIds = Object.keys(sidebarComponents)
 
-  const sidebarLayoutId = ref<SidebarComponentsId>('sidebar-default')
+  const sidebarLayoutId = ref<SidebarComponentsId>('sidebar-labels')
   const sidebarLayoutComponent = computed(() => {
     return sidebarComponents[sidebarLayoutId.value] || SidebarLayout
   })

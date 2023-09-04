@@ -169,6 +169,7 @@
         padding: 10px 0;
       }
 
+
       li {
         height: 36px;
         display: flex;
@@ -234,8 +235,9 @@
               color: var(--dark-text);
               font-weight: 600;
 
-              svg {
-                transform: rotate(90deg) !important;
+              .change-angle {
+                transform: rotate(-90deg) !important;
+                right: 0;
               }
             }
           }
@@ -281,7 +283,6 @@
                 top: 1px;
                 height: 18px;
                 width: 18px;
-                margin-left: auto;
                 transform: rotate(0);
                 color: var(--light-text);
                 transition: color 0.3s, background-color 0.3s, border-color 0.3s,
@@ -384,6 +385,10 @@
           font-weight: 500;
           color: var(--light-text);
         }
+      }
+
+      li.left-margin{
+        margin-left: 20px;
       }
 
       .docked-action {

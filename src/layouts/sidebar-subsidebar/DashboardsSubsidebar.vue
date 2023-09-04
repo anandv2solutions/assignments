@@ -22,8 +22,13 @@ const emit = defineEmits(['close'])
       <ul>
         <VCollapseLinks v-model:open="openSubsidebarLinks" collapse-id="personal">
           <template #header>
-            Personal
-            <i aria-hidden="true" class="iconify" data-icon="feather:chevron-right" />
+            <i
+              aria-hidden="true"
+              class="iconify logo-design"
+              data-icon="healthicons:money-bag-outline"
+            />
+            Loans
+            <i aria-hidden="true" class="iconify change-angle" data-icon="formkit:down" />
           </template>
 
           <RouterLink to="/sidebar/dashboards" class="is-submenu">
@@ -40,10 +45,44 @@ const emit = defineEmits(['close'])
           </RouterLink>
         </VCollapseLinks>
 
+        <li class="divider"></li>
+
+        <VCollapseLinks v-model:open="openSubsidebarLinks" collapse-id="assignment">
+          <template #header>
+            <i
+              aria-hidden="true"
+              class="iconify logo-design"
+              data-icon="ic:round-shield"
+            />
+            Anti Predatory
+            <i aria-hidden="true" class="iconify change-angle" data-icon="formkit-down" />
+          </template>
+
+          <RouterLink to="/sidebar/dashboards/anand" class="is-submenu">
+            <i aria-hidden="true" class="lnil lnil-analytics-alt-1"></i>
+            <span>Anand V1</span>
+          </RouterLink>
+          <RouterLink to="/sidebar/dashboards/anand-2" class="is-submenu">
+            <i aria-hidden="true" class="lnil lnil-pie-chart"></i>
+            <span>Anand V2</span>
+          </RouterLink>
+          <RouterLink to="/sidebar/dashboards/anand-3" class="is-submenu">
+            <i aria-hidden="true" class="lnil lnil-stats-up"></i>
+            <span>Anand V3</span>
+          </RouterLink>
+        </VCollapseLinks>
+
+        <li class="divider"></li>
+
         <VCollapseLinks v-model:open="openSubsidebarLinks" collapse-id="finance">
           <template #header>
-            Finance
-            <i aria-hidden="true" class="iconify" data-icon="feather:chevron-right" />
+            <i
+              aria-hidden="true"
+              class="iconify logo-design"
+              data-icon="pajamas:building"
+            />
+            Condo Review
+            <i aria-hidden="true" class="iconify change-angle" data-icon="formkit:down" />
           </template>
 
           <RouterLink to="/sidebar/dashboards/analytics" class="is-submenu">
@@ -60,10 +99,17 @@ const emit = defineEmits(['close'])
           </RouterLink>
         </VCollapseLinks>
 
+        <li class="divider"></li>
+
         <VCollapseLinks v-model:open="openSubsidebarLinks" collapse-id="banking">
           <template #header>
-            Banking
-            <i aria-hidden="true" class="iconify" data-icon="feather:chevron-right" />
+            <i
+              aria-hidden="true"
+              class="iconify logo-design"
+              data-icon="material-symbols:support-agent-rounded"
+            />
+            Closing Agents
+            <i aria-hidden="true" class="iconify change-angle" data-icon="formkit:down" />
           </template>
 
           <RouterLink to="/sidebar/dashboards/banking-1" class="is-submenu">
@@ -80,10 +126,10 @@ const emit = defineEmits(['close'])
           </RouterLink>
         </VCollapseLinks>
 
-        <VCollapseLinks v-model:open="openSubsidebarLinks" collapse-id="business">
+        <!-- <VCollapseLinks v-model:open="openSubsidebarLinks" collapse-id="business">
           <template #header>
             Business
-            <i aria-hidden="true" class="iconify" data-icon="feather:chevron-right" />
+            <i aria-hidden="true" class="iconify" data-icon="formkit:down" />
           </template>
 
           <RouterLink to="/sidebar/dashboards/flights" class="is-submenu">
@@ -111,7 +157,7 @@ const emit = defineEmits(['close'])
         <VCollapseLinks v-model:open="openSubsidebarLinks" collapse-id="lifestyle">
           <template #header>
             Lifestyle
-            <i aria-hidden="true" class="iconify" data-icon="feather:chevron-right" />
+            <i aria-hidden="true" class="iconify" data-icon="formkit:down" />
           </template>
 
           <RouterLink to="/sidebar/dashboards/influencer" class="is-submenu">
@@ -143,7 +189,7 @@ const emit = defineEmits(['close'])
         <VCollapseLinks v-model:open="openSubsidebarLinks" collapse-id="ecommerce">
           <template #header>
             Ecommerce
-            <i aria-hidden="true" class="iconify" data-icon="feather:chevron-right" />
+            <i aria-hidden="true" class="iconify" data-icon="formkit:down" />
           </template>
 
           <RouterLink to="/sidebar/dashboards/ecommerce-1" class="is-submenu">
@@ -155,7 +201,7 @@ const emit = defineEmits(['close'])
         <VCollapseLinks v-model:open="openSubsidebarLinks" collapse-id="apps">
           <template #header>
             Apps
-            <i aria-hidden="true" class="iconify" data-icon="feather:chevron-right" />
+            <i aria-hidden="true" class="iconify" data-icon="formkit:down" />
           </template>
 
           <RouterLink to="/sidebar/dashboards/food-delivery" class="is-submenu">
@@ -184,36 +230,78 @@ const emit = defineEmits(['close'])
             <i aria-hidden="true" class="lnil lnil-bubble"></i>
             <span>Messaging V2</span>
           </RouterLink>
-        </VCollapseLinks>
+        </VCollapseLinks> -->
 
         <li class="divider"></li>
 
-        <li>
-          <RouterLink to="/wizard-v1">Wizard</RouterLink>
+        <li class="left-margin">
+          <i aria-hidden="true" class="iconify" data-icon="tdesign:building" />
+          <RouterLink to="/wizard-v1">Builders</RouterLink>
+        </li>
+
+        <li class="divider"></li>
+
+        <li class="left-margin">
+          <i aria-hidden="true" class="iconify" data-icon="bi:house-gear" />
+          <RouterLink to="/wizard-v1">Appraisal Disputes</RouterLink>
+        </li>
+
+        <li class="divider"></li>
+
+        <li class="left-margin">
+          <i aria-hidden="true" class="iconify" data-icon="clarity:form-line" />
+          <RouterLink to="/wizard-v1">Arizona Forms</RouterLink>
+        </li>
+
+        <li class="divider"></li>
+
+        <li class="left-margin">
+          <i
+            aria-hidden="true"
+            class="iconify"
+            data-icon="streamline:money-cash-search-dollar-search-pay-product-currency-query-magnifying-cash-business-money-glass"
+          />
+          <RouterLink to="/wizard-v1">Servicer Lookup</RouterLink>
         </li>
 
         <li class="divider"></li>
 
         <VCollapseLinks v-model:open="openSubsidebarLinks" collapse-id="charts">
           <template #header>
-            Charts
-            <i aria-hidden="true" class="iconify" data-icon="feather:chevron-right" />
+            <i
+              aria-hidden="true"
+              class="iconify logo-design"
+              data-icon="healthicons:dollar-negative"
+            />
+            Payoff
+            <i aria-hidden="true" class="iconify change-angle" data-icon="formkit:down" />
           </template>
-
           <RouterLink to="/sidebar/dashboards/charts-apex" class="is-submenu">
             <i aria-hidden="true" class="lnil lnil-pie-chart-alt"></i>
             <span>Apex Charts</span>
           </RouterLink>
+
           <RouterLink class="is-submenu" to="/sidebar/dashboards/charts-billboardsjs">
             <i aria-hidden="true" class="lnil lnil-bar-chart"></i>
             <span>Billboard JS</span>
           </RouterLink>
         </VCollapseLinks>
 
-        <VCollapseLinks v-model:open="openSubsidebarLinks" collapse-id="widgets">
+        <li class="divider"></li>
+
+        <li class="left-margin">
+          <i
+            aria-hidden="true"
+            class="iconify"
+            data-icon="fluent:document-error-24-regular"
+          />
+          <RouterLink to="/wizard-v1">UW Exception</RouterLink>
+        </li>
+
+        <!-- <VCollapseLinks v-model:open="openSubsidebarLinks" collapse-id="widgets">
           <template #header>
             Widgets
-            <i aria-hidden="true" class="iconify" data-icon="feather:chevron-right" />
+            <i aria-hidden="true" class="iconify" data-icon="formkit:down" />
           </template>
 
           <RouterLink to="/sidebar/dashboards/widgets-sample-ui" class="is-submenu">
@@ -237,7 +325,7 @@ const emit = defineEmits(['close'])
         <VCollapseLinks v-model:open="openSubsidebarLinks" collapse-id="starters">
           <template #header>
             Starters
-            <i aria-hidden="true" class="iconify" data-icon="feather:chevron-right" />
+            <i aria-hidden="true" class="iconify" data-icon="formkit:down" />
           </template>
 
           <RouterLink to="/starters/sidebar-blank-page-1" class="is-submenu">
@@ -322,7 +410,7 @@ const emit = defineEmits(['close'])
             <i aria-hidden="true" class="lnil lnil-layout-alt-1"></i>
             <span>Clean Fade Navbar</span>
           </RouterLink>
-        </VCollapseLinks>
+        </VCollapseLinks> -->
       </ul>
     </div>
   </div>
@@ -330,4 +418,8 @@ const emit = defineEmits(['close'])
 
 <style lang="scss">
 @import '/@src/scss/layout/sidebar-panel';
+
+.logo-design {
+  margin-right: 15px;
+}
 </style>

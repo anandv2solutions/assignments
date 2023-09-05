@@ -44,6 +44,7 @@ declare module 'vue-router/auto/routes' {
     '/auth/signup-1': RouteRecordInfo<'/auth/signup-1', '/auth/signup-1', Record<never, never>, Record<never, never>>,
     '/auth/signup-2': RouteRecordInfo<'/auth/signup-2', '/auth/signup-2', Record<never, never>, Record<never, never>>,
     '/auth/signup-3': RouteRecordInfo<'/auth/signup-3', '/auth/signup-3', Record<never, never>, Record<never, never>>,
+    '/comments': RouteRecordInfo<'/comments', '/comments', Record<never, never>, Record<never, never>>,
     '/components': RouteRecordInfo<'/components', '/components', Record<never, never>, Record<never, never>>,
     '/components/': RouteRecordInfo<'/components/', '/components', Record<never, never>, Record<never, never>>,
     '/components/accordion/': RouteRecordInfo<'/components/accordion/', '/components/accordion', Record<never, never>, Record<never, never>>,

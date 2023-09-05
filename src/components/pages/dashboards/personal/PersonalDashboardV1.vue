@@ -3,6 +3,8 @@ import 'vue-good-table/dist/vue-good-table.css'
 import { reactive, ref } from 'vue'
 import { VueGoodTable } from 'vue-good-table-next'
 import axios from 'axios'
+import { boolean } from 'zod'
+import { validate } from 'vee-validate'
 
 interface IColumnDataType {
   label: string
@@ -40,6 +42,19 @@ interface IRowDataType {
   description: string
 }
 
+interface validation {
+  product_name: boolean
+  product_name_errorMessage: string
+  original_price: boolean
+  original_price_errorMessage: string
+  sale_price: boolean
+  sale_price_errorMessage: string
+  product_type: boolean
+  product_type_errorMessage: string
+  description: boolean
+  description_errorMessage: string
+}
+
 let isDataLoaded = ref<boolean>(false)
 
 const isEditing = ref<boolean>(false)
@@ -48,11 +63,24 @@ const rowData = ref<IRowDataType[]>()
 
 const isButtonDisabled = ref<boolean>(true)
 
+const isError: validation = reactive({
+  product_name: false,
+  product_name_errorMessage: 'product name > 5 and less than 15',
+  original_price: false,
+  original_price_errorMessage: 'original price should be greater than 0rs',
+  sale_price: false,
+  sale_price_errorMessage: '',
+  product_type: false,
+  product_type_errorMessage: "Product count won't exceed 10",
+  description: false,
+  description_errorMessage: 'Description should be grater than 20 chars',
+})
+
 const newRowData: IRowDataType = reactive({
   product_name: '',
-  original_price: 0,
-  sale_price: 0,
-  product_type: 0,
+  original_price: '',
+  sale_price: '',
+  product_type: '',
   description: '',
 })
 
@@ -62,17 +90,21 @@ const openForm = () => {
 }
 
 const buttonDisabledCheck = () => {
-  newRowData.product_name.length > 5 &&
-  newRowData.original_price > 0 &&
-  newRowData.sale_price > 0 &&
-  newRowData.product_type > 0 &&
-  newRowData.description.length > 8
-    ? (isButtonDisabled.value = false)
-    : (isButtonDisabled.value = true)
+  if (
+    newRowData.product_name.length > 0 &&
+    newRowData.original_price > 0 &&
+    newRowData.sale_price > 0 &&
+    newRowData.product_type > 0 &&
+    newRowData.description.length > 0
+  ) {
+    isButtonDisabled.value = false
+  } else {
+    isButtonDisabled.value = true
+  }
 }
 
 function debounceFunc(func, delay) {
-  let timeoutId
+  let timeoutId: number
 
   return function (...args) {
     clearTimeout(timeoutId)
@@ -86,6 +118,81 @@ function debounceFunc(func, delay) {
 // Create a debounced version of your function
 const betterButtonDisabledCheck = debounceFunc(buttonDisabledCheck, 300) // Adjust the delay as needed (e.g., 300 milliseconds)
 
+const validateFormProductName = () => {
+  if (newRowData.product_name.length > 5 && newRowData.product_name.length < 15) {
+    var pattern = /[^a-zA-Z0-9\s]/
+    if (pattern.test(newRowData.product_name)) {
+      isError.product_name = true
+      isError.product_name_errorMessage =
+        'product name should not contain any special character'
+    } else {
+      isError.product_name = false
+      isError.product_name_errorMessage = ''
+    }
+  } else {
+    isError.product_name = true
+    isError.product_name_errorMessage =
+      'product name should contains only 5 to 15 characters'
+  }
+}
+
+const validateFormProductOriginalPrice = () => {
+  if (newRowData.original_price <= 0) {
+    isError.original_price = true
+    isError.original_price_errorMessage = 'Original price cannot be zero or negative'
+  } else {
+    isError.original_price = false
+    isError.original_price_errorMessage = ''
+  }
+}
+
+const validateFormProductSellPrice = () => {
+  if (newRowData.original_price >= newRowData.sale_price) {
+    isError.sale_price = true
+    isError.sale_price_errorMessage =
+      'Sale Price cannot be lower than or equal to original price'
+  } else {
+    isError.sale_price = false
+    isError.sale_price_errorMessage = ''
+  }
+}
+
+const validateFormProductCount = () => {
+  if (newRowData.product_type > 10) {
+    isError.product_type = true
+    isError.product_type_errorMessage = 'Product count should not exceed 10'
+  } else {
+    isError.product_type = false
+    isError.product_type_errorMessage = ''
+  }
+}
+
+const validateFormDescription = () => {
+  if (newRowData.description.length < 20) {
+    isError.description = true
+    isError.description_errorMessage = 'Description should be grater than 20 chars'
+  } else {
+    isError.description = false
+    isError.description_errorMessage = ''
+  }
+}
+
+const validateForm = () => {
+  validateFormProductName()
+  validateFormProductOriginalPrice()
+  validateFormProductSellPrice()
+  validateFormProductCount()
+  validateFormDescription()
+  if (
+    !isError.product_name &&
+    !isError.original_price &&
+    !isError.sale_price &&
+    !isError.product_type &&
+    !isError.description
+  ) {
+    addData()
+  }
+}
 const addData = async () => {
   try {
     const postPayload = {
@@ -132,7 +239,7 @@ onMounted(() => {
     initial-sort-by="{field: 'product_name', type: 'asc'}"
   />
   <button v-if="isDataLoaded" @click="openForm">Add new item</button>
-  <form v-if="isEditing" @submit.prevent="addData">
+  <form v-if="isEditing" @submit.prevent="validateForm">
     <VField>
       <VLabel>Please insert your product name</VLabel>
       <VControl>
@@ -143,6 +250,9 @@ onMounted(() => {
           placeholder="Please enter title.."
           @blur="betterButtonDisabledCheck"
         />
+        <p v-if="isError.product_name" class="help has-text-danger">
+          {{ isError.product_name_errorMessage }}
+        </p>
       </VControl>
     </VField>
     <VField>
@@ -155,6 +265,9 @@ onMounted(() => {
           placeholder="Please enter price.."
           @change="betterButtonDisabledCheck"
         />
+        <p v-if="isError.original_price" class="help has-text-danger">
+          {{ isError.original_price_errorMessage }}
+        </p>
       </VControl>
     </VField>
     <VField>
@@ -167,6 +280,9 @@ onMounted(() => {
           placeholder="Please enter sale price.."
           @change="betterButtonDisabledCheck"
         />
+        <p v-if="isError.sale_price" class="help has-text-danger">
+          {{ isError.sale_price_errorMessage }}
+        </p>
       </VControl>
     </VField>
     <VField>
@@ -179,6 +295,9 @@ onMounted(() => {
           placeholder="Please enter product count.."
           @change="betterButtonDisabledCheck"
         />
+        <p v-if="isError.product_type" class="help has-text-danger">
+          {{ isError.product_type_errorMessage }}
+        </p>
       </VControl>
     </VField>
     <VField>
@@ -191,6 +310,9 @@ onMounted(() => {
           placeholder="Please enter some description.."
           @blur="betterButtonDisabledCheck"
         />
+        <p v-if="isError.description" class="help has-text-danger">
+          {{ isError.description_errorMessage }}
+        </p>
       </VControl>
     </VField>
     <VButton :disabled="isButtonDisabled" color="primary" type="submit">Add item</VButton>

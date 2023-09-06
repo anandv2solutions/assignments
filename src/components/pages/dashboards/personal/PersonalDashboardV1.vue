@@ -115,8 +115,7 @@ function debounceFunc(func, delay) {
   }
 }
 
-// Create a debounced version of your function
-const betterButtonDisabledCheck = debounceFunc(buttonDisabledCheck, 300) // Adjust the delay as needed (e.g., 300 milliseconds)
+const betterButtonDisabledCheck = debounceFunc(buttonDisabledCheck, 300)
 
 const validateFormProductName = () => {
   if (newRowData.product_name.length > 5 && newRowData.product_name.length < 15) {

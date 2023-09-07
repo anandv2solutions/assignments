@@ -4,7 +4,7 @@ import { useHead } from '@vueuse/head'
 import { useViewWrapper } from '/@src/stores/viewWrapper'
 
 const viewWrapper = useViewWrapper()
-viewWrapper.setPageTitle('Personal 2')
+viewWrapper.setPageTitle('Details page')
 
 useHead({
   title: 'Personal 2 - Sidebar - Vuero',

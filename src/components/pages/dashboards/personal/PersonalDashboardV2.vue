@@ -9,16 +9,42 @@ interface IjsonData {
   email: string
   body: string
 }
+
+interface IPageControl {
+  currentPage: number
+  startIndex: number
+  totalPage: number
+  limit: number
+}
+
 const dataList = ref<IjsonData[]>()
+
+const currentPage = ref(1)
 
 const checkClick = (postId: number = 1) => {
   router.push(`comments?postId=${postId}`)
 }
 
+const loadMore = () => {
+  currentPage.value++
+  getRowData()
+}
+
+const getRowData = () => {
+  axios
+    .get(
+      `https://jsonplaceholder.typicode.com/comments?_limit=10&_start=${currentPage.value}`
+    )
+    .then((response) => {
+      dataList.value = response.data
+    })
+    .catch((error) => {
+      console.error('An error occurred:', error)
+    })
+}
+
 onMounted(() => {
-  axios.get('https://jsonplaceholder.typicode.com/comments').then((res) => {
-    dataList.value = res.data
-  })
+  getRowData()
 })
 </script>
 
@@ -38,6 +64,7 @@ onMounted(() => {
         </p>
       </VCard>
     </div>
+    <button @click="loadMore">Load more</button>
   </div>
 </template>
 

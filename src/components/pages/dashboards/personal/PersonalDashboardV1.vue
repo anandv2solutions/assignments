@@ -3,8 +3,6 @@ import 'vue-good-table/dist/vue-good-table.css'
 import { reactive, ref } from 'vue'
 import { VueGoodTable } from 'vue-good-table-next'
 import axios from 'axios'
-import { boolean } from 'zod'
-import { validate } from 'vee-validate'
 
 interface IColumnDataType {
   label: string
@@ -318,7 +316,7 @@ onMounted(() => {
   </form>
 </template>
 
-    <style lang="scss">
+<style lang="scss">
 @import '/@src/scss/abstracts/all';
 
 tr {
